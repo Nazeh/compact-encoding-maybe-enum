@@ -2,6 +2,23 @@
 
 Generate [compact encoding](https://github.com/compact-encoding/compact-encoding) for defined enum or limited length arbitrary string
 
+## why
+
+An example of where this might be useful is encoding the value of a `type` property, where a set of strings are expected to be used 90% of the time, so encoding them as strings is quite wasteful, but you don't want to prohibit arbitrary strings either.
+
+The trade-off used here is to:
+
+- limit the arbitrary string length to `127` character.
+- limit the enum to `128` member.
+
+This way, we only need to store a value between `0 - 127` in the first byte, while the `msb` indicates whether the string is encoded as an enum or a string .
+
+## How it works
+
+`0000 0000` => `0111 1111` values encode the index of the enum member.
+
+`1000 0000` => `1111 1111` values encode the length of the arbitrary string, after switching the `msb` to `0` (xor 0x80).
+
 ## Installation
 
 ```
@@ -37,28 +54,4 @@ const decoded = c.decode(enc, encoded);
 
 #### with compact encoding: `c.encode(enc, value)`
 
-`value` should be a string from `members`, or an arbitrary string with maximum length of `0x80` (128) characters.
-
-## How it works
-
-### Encoding
-
-Encoding starts by checking if the value is a member of the enum:
-
-- If so the index is stored in the first byte.
-
-- Else the first byte is set to `Buffer.byteLength(value) + 0x80` followed by the bytes encoding the string.
-
-### Decoding
-
-Decoding starts by examining the next byte in [`state.buffer`](https://github.com/compact-encoding/compact-encoding#state):
-
-- If `0x00 >= byte <= 0x7f`, the byte is used as the index of the member of the enum.
-
-- Else if `0x80 <= byte <= 0xff`, the byte is used as the byteLength of the string after subtracting `0x80`.
-
-## Limitations
-
-- The maximum length of the enum is `0x80` (128) members.
-
-- The maximum length of the string is `0x80` (128) characters.
+`value` should be a string from `members`, or an arbitrary string with maximum length of `0x7f` (127) characters.
