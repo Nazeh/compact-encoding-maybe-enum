@@ -1,6 +1,6 @@
 {
   "name": "compact-encoding-maybe-enum",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate compact encoding for defined enum or limited length arbitrary string",
   "type": "module",
   "keywords": [
