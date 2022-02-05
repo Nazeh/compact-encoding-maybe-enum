@@ -1,0 +1,60 @@
+{
+  "name": "compact-encoding-maybe-enum",
+  "version": "1.0.0",
+  "description": "Generate compact encoding for defined enum or limited length arbitrary string",
+  "type": "module",
+  "keywords": [
+    "compact-encoding",
+    "enum"
+  ],
+  "homepage": "https://github.com/Nazeh/compact-encoding-maybe-enum/tree/main/#readme",
+  "bugs": {
+    "url": "https://github.com/Nazeh/compact-encoding-maybe-enum/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "*",
+    "!**/*.tsbuildinfo"
+  ],
+  "types": "types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "types/*",
+        "types/src/*"
+      ],
+      "types/*": [
+        "types/*",
+        "types/src/*"
+      ]
+    }
+  },
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nazeh/compact-encoding-maybe-enum.git"
+  },
+  "scripts": {
+    "build": "aegir build",
+    "test": "c8 aegir test",
+    "lint": "aegir lint --fix",
+    "clean": "rimraf ./dist",
+    "dep-check": "aegir dep-check"
+  },
+  "dependencies": {
+    "b4a": "^1.3.1"
+  },
+  "devDependencies": {
+    "aegir": "^36.1.3",
+    "c8": "^7.11.0",
+    "compact-encoding": "^2.6.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "mocha": true
+    },
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  }
+}
