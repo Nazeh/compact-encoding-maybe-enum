@@ -2,21 +2,31 @@
 
 Generate [compact encoding](https://github.com/compact-encoding/compact-encoding) for defined enum or limited length arbitrary string
 
+## Installation
+
+```
+npm install compact-encoding-maybe-enum
+```
+
 ## Usage
 
 ```js
 import c from 'compact-encoding';
 import { maybeEnum } from 'compact-encoding-maybe-enum';
 
-const enc = maybeEnum(['a', 'b', 'c']);
+const enc = maybeEnum(['foo', 'bar']);
 
 // Encoding decoding a member of enum
-const encoded = c.encode(enc, 'b'); // 0x01
-const decoded = c.decode(enc, encoded); // 'b'
+const encoded = c.encode(enc, 'bar');
+//=> <Buffer 0x01>
+const decoded = c.decode(enc, encoded);
+//=> 'bar'
 
 // Encoding decoding arbitrary string
-const encoded = c.encode(enc, 'foo'); // <Buffer 83 66 6f 6f>
-const decoded = c.decode(enc, encoded); // 'foo'
+const encoded = c.encode(enc, 'x');
+//=> <Buffer 81 78>
+const decoded = c.decode(enc, encoded);
+//=> 'x'
 ```
 
 ## API
